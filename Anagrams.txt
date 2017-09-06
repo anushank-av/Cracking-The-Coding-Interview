@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+public class Solution {
+    public static int numberNeeded(String first, String second) {
+        char[] f = first.toCharArray();
+        char[] s = second.toCharArray();
+        int count = 0;
+        Map<Character,Integer> map = new HashMap<Character,Integer>();
+        for(int i = 0;i<s.length;i++){
+            char t = s[i];
+            if(map.get(t)!=null){
+                map.put(t,map.get(t)+1);
+            }
+            else {
+                map.put(t,1);
+            }
+        }
+        for(int i =0;i<f.length;i++){
+            char t = f[i];
+            if(map.get(t)!=null){
+                if(map.get(t)!=0){
+                    map.put(t,map.get(t)-1);
+                }
+                else {count++;}
+            }
+            else{count++;}
+        }
+        int temp = 0;
+        for(Character c:map.keySet()) {
+            temp+=map.get(c);
+        }
+        return temp + count;        
+    }
+  
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String a = in.next();
+        String b = in.next();
+        System.out.println(numberNeeded(a, b));
+    }
+}
